@@ -3,6 +3,12 @@
 // Usamos o pacote "better-sqlite3": ele é síncrono, ou seja, cada comando
 // SQL roda e devolve o resultado na hora, sem precisar de "await".
 // Isso deixa o código mais fácil de ler para quem está começando.
+//
+// Esse arquivo é importado por routes/clientes.js (e, no exercício, também
+// por routes/servicos.js), mas o código abaixo só roda uma vez: o Node
+// executa o módulo na primeira importação e reaproveita o resultado nas
+// seguintes. Por isso o CREATE TABLE só acontece uma vez, ao iniciar o
+// servidor, mesmo com vários arquivos de rotas importando este arquivo.
 
 import Database from 'better-sqlite3';
 
