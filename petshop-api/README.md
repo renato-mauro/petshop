@@ -30,19 +30,37 @@ o seu próprio banco, criado do zero.
 
 ```
 petshop-api/
-├── database.js   -> conecta no SQLite e cria as tabelas
-├── server.js     -> define as rotas da API (o "coração" do projeto)
-└── petshop.db    -> arquivo do banco de dados (criado automaticamente)
+├── database.js       -> conecta no SQLite e cria as tabelas
+├── server.js         -> cria o servidor Express e monta as rotas de cada entidade
+├── routes/
+│   └── clientes.js    -> todas as rotas do cadastro de clientes
+└── petshop.db        -> arquivo do banco de dados (criado automaticamente)
 ```
+
+Cada entidade (cliente, serviço, etc.) tem seu **próprio arquivo de rotas**
+dentro de `routes/`. Isso mantém o projeto organizado: para saber tudo que
+existe sobre "clientes", basta abrir `routes/clientes.js` — sem precisar
+misturar as rotas de entidades diferentes no mesmo arquivo.
 
 ## Como a API funciona (visão geral)
 
 1. `database.js` abre (ou cria) o arquivo `petshop.db` e garante que a
    tabela `clientes` exista, rodando um comando `CREATE TABLE IF NOT EXISTS`.
-2. `server.js` cria um servidor Express e registra uma rota para cada
-   operação do CRUD (Create, Read, Update, Delete).
-3. Cada rota recebe a requisição (`req`), roda um comando SQL usando
-   `db.prepare(...)`, e devolve uma resposta (`res`) em JSON.
+2. `routes/clientes.js` cria um [`express.Router()`](https://expressjs.com/pt-br/guide/routing.html#roteador-de-express)
+   — um "mini app" do Express — e registra nele uma rota para cada operação
+   do CRUD (Create, Read, Update, Delete). Cada rota recebe a requisição
+   (`req`), roda um comando SQL usando `db.prepare(...)`, e devolve uma
+   resposta (`res`) em JSON.
+3. `server.js` cria o servidor Express principal e "monta" esse router em um
+   endereço base:
+
+   ```js
+   app.use('/api/clientes', clientesRouter);
+   ```
+
+   Ou seja: uma rota escrita como `router.get('/:id')` dentro de
+   `routes/clientes.js` passa a responder, na prática, em
+   `GET /api/clientes/:id`.
 4. O pacote `cors` libera o acesso de outras origens (como o site rodando em
    `http://localhost:5173`), já que por padrão o navegador bloqueia
    requisições entre portas/domínios diferentes.
@@ -147,15 +165,23 @@ curl -X DELETE http://localhost:3001/api/clientes/1
 
 ## Exercício: adicionar o cadastro de "Serviços oferecidos"
 
-O arquivo `server.js` tem um bloco de comentário marcado como
-**PONTO DE EXERCÍCIO** mostrando onde adicionar as novas rotas, e
-`database.js` tem outro mostrando onde criar a nova tabela. O passo a passo
-completo (incluindo o lado do front-end) está no README do
+O arquivo `database.js` tem um bloco de comentário marcado como
+**PONTO DE EXERCÍCIO** mostrando onde criar a nova tabela, e `server.js` tem
+outro mostrando onde montar o novo router. O passo a passo completo
+(incluindo o lado do front-end) está no README do
 [`petshop-frontend`](../petshop-frontend/README.md#exercício-crie-o-cadastro-de-serviços-oferecidos).
 
 Resumo do lado da API:
 
 1. Em `database.js`, crie a tabela `servicos` (por exemplo com os campos
    `id_servico`, `nome`, `descricao`, `preco`).
-2. Em `server.js`, copie as 5 rotas de `clientes` e adapte para `/api/servicos`.
-3. Teste as novas rotas com `curl` antes de ligar o front-end nelas.
+2. Crie `routes/servicos.js` copiando `routes/clientes.js` como modelo, e
+   adapte os campos e os comandos SQL para a tabela `servicos`.
+3. Em `server.js`, importe e monte o novo router:
+
+   ```js
+   import servicosRouter from './routes/servicos.js';
+   app.use('/api/servicos', servicosRouter);
+   ```
+
+4. Teste as novas rotas com `curl` antes de ligar o front-end nelas.
