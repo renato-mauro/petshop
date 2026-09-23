@@ -1,0 +1,6 @@
+# Arquivos de sistema operacional e editor (relevantes em qualquer pasta do repo).
+# Cada projeto (petshop-api/, petshop-frontend/) tem seu próprio .gitignore
+# para as coisas específicas dele (node_modules, build, banco de dados, etc.).
+.DS_Store
+.vscode/
+.idea/

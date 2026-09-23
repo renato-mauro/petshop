@@ -1,0 +1,4 @@
+node_modules/
+petshop.db
+petshop.db-shm
+petshop.db-wal
