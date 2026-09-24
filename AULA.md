@@ -46,6 +46,8 @@ npm install
 npm run dev
 ```
 
+O `npm install` pode demorar um pouco na primeira vez: além das bibliotecas, ele baixa uma versão do Node.js só para este projeto (é normal).
+
 Deu certo quando aparecer a mensagem:
 
 ```
@@ -79,7 +81,6 @@ Deu certo quando aparecer algo assim:
 
 ### Se der erro
 
-- **`npm` não é reconhecido como comando:** o Node.js não está instalado. Instale a versão LTS em https://nodejs.org e depois **feche e abra o VS Code de novo**.
-- **Erro vermelho falando em "execução de scripts foi desabilitada" / `npm.ps1`:** o terminal está usando o PowerShell. Clique na setinha **˅** ao lado do **+** no terminal, escolha **Git Bash** e rode os comandos de novo.
+- **`npm` não é reconhecido como comando:** o Node.js não está instalado. Instale a versão LTS em https://nodejs.org e depois **feche e abra o VS Code de novo**.- **Erro vermelho falando em "execução de scripts foi desabilitada" / `npm.ps1`:** o terminal está usando o PowerShell. Clique na setinha **˅** ao lado do **+** no terminal, escolha **Git Bash** e rode os comandos de novo.
 - **A página abre, mas aparece "Não foi possível carregar os clientes":** o terminal da API (passo 4) foi fechado ou deu erro. Confira se ele ainda está rodando.
 - **Para parar um servidor:** clique no terminal dele e aperte `Ctrl + C`.

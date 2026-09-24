@@ -50,8 +50,17 @@ router.post('/', (req, res) => {
     return res.status(400).json({ erro });
   }
 
-  const { nome, telefone, tipo_pet, nome_pet, data_nascimento_pet, raca, cor } =
-    req.body;
+  // Os campos opcionais recebem "null" quando não vierem na requisição:
+  // o SQLite aceita null (campo vazio), mas não aceita undefined.
+  const {
+    nome,
+    telefone,
+    tipo_pet,
+    nome_pet,
+    data_nascimento_pet = null,
+    raca = null,
+    cor = null,
+  } = req.body;
 
   const resultado = db
     .prepare(
@@ -83,8 +92,15 @@ router.put('/:id', (req, res) => {
     return res.status(404).json({ erro: 'Cliente não encontrado.' });
   }
 
-  const { nome, telefone, tipo_pet, nome_pet, data_nascimento_pet, raca, cor } =
-    req.body;
+  const {
+    nome,
+    telefone,
+    tipo_pet,
+    nome_pet,
+    data_nascimento_pet = null,
+    raca = null,
+    cor = null,
+  } = req.body;
 
   db.prepare(
     `UPDATE clientes SET

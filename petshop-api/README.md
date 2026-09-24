@@ -1,7 +1,14 @@
 # petshop-api
 
 API REST feita com **Node.js + Express**, que guarda os dados em um banco
-**SQLite** (usando o pacote [`better-sqlite3`](https://github.com/WiseLibs/better-sqlite3)).
+**SQLite**. O SQLite usado aqui já vem embutido no próprio Node.js (módulo
+[`node:sqlite`](https://nodejs.org/api/sqlite.html)), então não é preciso
+instalar nem compilar nenhum pacote de banco de dados.
+
+> O `node:sqlite` só existe a partir do Node.js 22.13. Por isso, o próprio
+> projeto traz o Node.js 24 como dependência (pacote `node` no
+> `package.json`): o `npm install` baixa essa versão e o `npm run dev` usa
+> ela, mesmo que o computador tenha um Node.js mais antigo instalado.
 
 Essa API não tem interface — ela só responde requisições HTTP com dados em
 JSON. Quem consome ela é o projeto [`petshop-frontend`](../petshop-frontend),

@@ -15,6 +15,16 @@ proposital: no mundo real, o front-end e o back-end quase sempre são projetos
 
 ## Como rodar o projeto
 
+Você precisa ter o **Node.js** instalado (qualquer versão razoavelmente
+recente serve, só para ter o comando `npm`).
+
+Não se preocupe com a versão: cada projeto (`petshop-api` e
+`petshop-frontend`) tem o pacote `node` nas suas dependências. Ao rodar
+`npm install`, é baixada uma versão atual do Node.js para dentro da pasta
+`node_modules`, e os comandos `npm run ...` passam a usar essa versão, não
+a que está instalada no computador. Assim o projeto funciona do mesmo jeito
+em qualquer máquina, sem precisar instalar nada como administrador.
+
 Você vai precisar de **dois terminais abertos ao mesmo tempo** (um para a API,
 outro para o site), porque são dois servidores diferentes.
 
